@@ -57,7 +57,7 @@ const servicesData = [
     time: "約1時間",
     description: "高圧洗浄機を用いて、アルミフィンや送風ファンに潜むカビやホコリを細部まで丁寧に洗浄。アレルギー対策や冷暖房効率の復活により、電気代削減にもつながる納得のプロ仕様です。",
     features: ["細部まで行き届く高圧洗浄", "におい・カビの徹底的な洗浄", "冷暖房効率の良好な回復"],
-    imageUrl: "./aircon.jpg",
+    imageUrl: "./eakonn1.PNG",
     options: [
       { name: "お掃除機能付き", extraPrice: 6600 },
       { name: "防カビコーティング", extraPrice: 1500 }
@@ -72,7 +72,7 @@ const servicesData = [
     time: "約1.5時間",
     description: "油汚れで目詰まりした内部ファンを分解。専用洗剤による温浴洗浄で頑固なギトギト油を丁寧に落とし、本来の吸気力を取り戻します。",
     features: ["内部シロッコファンの分解漬け置き", "頑固な油汚れの丁寧な除去", "フード・プロペラ全体の入念な拭き上げ"],
-    imageUrl: "https://images.unsplash.com/photo-1556911220-e15b29be8c8f?auto=format&fit=crop&w=600&q=80",
+    imageUrl: "./29462174_m.jpg",
     options: []
   },
   {
