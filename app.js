@@ -393,7 +393,7 @@ function App() {
               
               <div className="inline-flex items-center gap-2 bg-white border border-[#1E86D4]/40 text-[#1E86D4] font-bold text-xs sm:text-sm px-4 py-2.5 rounded-full shadow-sm">
                 <span className="w-2.5 h-2.5 bg-[#1E86D4] rounded-full animate-ping"></span>
-                東京・埼玉・千葉密着：出張交通費は一切頂きません
+                東京・埼玉・千葉：チラシ配布エリアの出張交通費は一切頂きません
               </div>
 
               <h2 className="text-3xl sm:text-5xl lg:text-6xl font-extrabold text-[#0E4C86] leading-tight tracking-tight font-rounded">
@@ -936,13 +936,13 @@ function App() {
                 <div className="absolute top-4 left-4 right-4 flex items-center justify-between text-white drop-shadow">
                   <div className="flex items-center gap-2">
                     <div className="w-7 h-7 rounded-full bg-[#1E86D4] flex items-center justify-center font-bold text-[10px] text-white">T</div>
-                    <span className="font-bold text-[11px] sm:text-xs font-rounded">【ノーカット】プロが解説する！エアコン分解・高圧洗浄の一部始終</span>
+                    <span className="font-bold text-[11px] sm:text-xs font-rounded">【実演】プロが解説する！エアコン分解・高圧洗浄の一部公開</span>
                   </div>
                 </div>
 
                 {/* ★YouTube動画のリンク差し替え：下の href を自分のYouTube動画/チャンネルURLに変更★ */}
                 <a 
-                  href="https://www.youtube.com" 
+                  href="https://youtu.be/tJy0Homq8yk" 
                   target="_blank" 
                   rel="noopener noreferrer" 
                   className="absolute inset-0 z-20 cursor-pointer"
