@@ -386,7 +386,7 @@ function App() {
               
               <div className="inline-flex items-center gap-2 bg-white border border-[#1E86D4]/40 text-[#1E86D4] font-bold text-xs sm:text-sm px-4 py-2.5 rounded-full shadow-sm">
                 <span className="w-2.5 h-2.5 bg-[#1E86D4] rounded-full animate-ping"></span>
-                東京・埼玉・千葉密着：出張交通費は一切頂きません
+                東京・埼玉・千葉：チラシ配布中エリアの出張交通費は一切頂きません
               </div>
 
               <h2 className="text-3xl sm:text-5xl lg:text-6xl font-extrabold text-[#0E4C86] leading-tight tracking-tight font-rounded">
@@ -1304,7 +1304,7 @@ function App() {
             <div className="md:col-span-4 space-y-3.5">
               <h4 className="text-white font-bold text-sm font-rounded">おそうじ受付予約センター</h4>
               <p className="text-xs text-slate-300 leading-relaxed font-gothic">
-                おそうじ係ティディズハウス 本部窓口<br />
+                おそうじ係ティディズハウス 窓口<br />
                 対応可能エリア：東京都・埼玉県・千葉県<br />
                 受付可能時間：9:00〜19:00 (土日・祝日も年中無休)<br />
                 電話番号：<a href="tel:050-6870-6753" className="text-[#1E86D4] font-bold hover:underline">050-6870-6753</a><br />
