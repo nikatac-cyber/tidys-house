@@ -98,7 +98,7 @@ const servicesData = [
     time: "約1.5時間",
     description: "ガスコンロやIHの頑固な焦げ付き、シンクの水垢・ヌメリ、天板から壁面までを丁寧に磨き上げ。毎日のお料理が楽しくなる清潔なキッチンへ仕上げします。",
     features: ["コンロ・IH天板の焦げ落とし", "シンク・蛇口の水垢除去と抗菌仕上げ", "前面壁・収納棚表面の拭き上げ"],
-    imageUrl: "https://images.unsplash.com/photo-1556911220-115f74bbe041?auto=format&fit=crop&w=600&q=80",
+    imageUrl: "./logo.png",
     options: []
   },
   {
@@ -110,7 +110,7 @@ const servicesData = [
     time: "約1時間",
     description: "便器の内側やフチ裏の頑固な尿石、黄ばみ、気になるニオイの原因にしっかりアプローチ。ウォシュレットノズルなどの細部まで丁寧に除菌洗浄します。",
     features: ["フチ裏の頑固な尿石・黄ばみの除去", "ウォシュレットノズル細部洗浄", "壁面・床面の丁寧な除菌拭き上げ"],
-    imageUrl: "https://images.unsplash.com/photo-1584622781564-1d987f7333c1?auto=format&fit=crop&w=600&q=80",
+    imageUrl: "./518608a2-7002-402a-b46e-714b9301718a.png",
     options: []
   },
   {
@@ -122,7 +122,7 @@ const servicesData = [
     time: "約30分",
     description: "室外機の熱交換器（アルミフィン）に詰まったホコリや泥汚れを高圧洗浄。エアコン本体への負荷を和らげ、さらなる省エネ・電気代カットにつながります。",
     features: ["熱交換器アルミフィンの目詰まり解消", "ファン周辺・カバーの洗浄", "故障予防と長寿命化の促進"],
-    imageUrl: "https://images.unsplash.com/photo-1621905251918-48416bd8575a?auto=format&fit=crop&w=600&q=80",
+    imageUrl: "./1644959666772.jpg",
     options: []
   }
 ];
@@ -914,7 +914,7 @@ function App() {
               <div className="relative aspect-video w-full bg-slate-900 rounded-2xl shadow-xl overflow-hidden group border border-[#1E86D4]/30">
                 {/* ★YouTubeサムネ画像の差し替え：下の src を変更★ */}
                 <img 
-                  src="https://images.unsplash.com/photo-1581578731548-c64695cc6952?auto=format&fit=crop&w=1000&q=80" 
+                  src="./c216142d-6f9a-4811-8fa9-d1c7841a56ab.png" 
                   alt="YouTube作業実況サムネイル" 
                   className="w-full h-full object-cover opacity-80 group-hover:scale-103 transition-transform duration-700"
                 />
