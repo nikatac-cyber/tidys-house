@@ -6,6 +6,8 @@
        name: "エアコン高圧洗浄"  … サービス名
    ■ 文章・見出しを変える → その下のデザイン部分。変えたい日本語を
        GitHubの検索や Ctrl+F で探して書き換えてください。
+   ■ 写真・YouTubeを変える → 「★」印のコメントを Ctrl+F で「★」で検索すると、
+       差し替え場所（写真URL・YouTube URL）にすぐ飛べます。
 
    ■ 保存すると反映されます：
        GitHubでこのファイルを編集 →「Commit changes（保存）」→ 約1〜2分で公開サイトに自動反映。
@@ -40,6 +42,11 @@ const LINE_ICON = (
   </svg>
 );
 
+// ============================================================
+// ★写真の差し替えかた★  各サービスの写真は下の imageUrl: のURL/ファイル名です。
+//   自分の写真に変える手順：①画像をGitHubにアップロード ②"./ファイル名.jpg" と書く
+//   例）imageUrl: "./aircon.jpg"  ← aircon.jpg を新しい画像に差し替えれば写真も変わります
+// ============================================================
 const servicesData = [
   {
     id: "aircon",
@@ -313,8 +320,8 @@ function App() {
           <nav className="hidden lg:flex items-center gap-8 font-medium text-[#333333]/90 text-sm">
             <a href="#features" className="hover:text-[#1E86D4] transition-colors">私たちのこだわり</a>
             <a href="#services" className="hover:text-[#1E86D4] transition-colors">サービス・納得価格</a>
-            <a href="#estimator" className="hover:text-[#1E86D4] transition-colors">見積シミュレーター</a>
-            <a href="#youtube" className="hover:text-[#1E86D4] transition-colors">作業動画</a>
+            <a href="#estimator" className="hover:text-[#1E86D4] transition-colors">簡単見積シミュレーター</a>
+            <a href="#youtube" className="hover:text-[#1E86D4] transition-colors">作業実況動画</a>
             <a href="#flow" className="hover:text-[#1E86D4] transition-colors">ご利用の流れ</a>
             <a href="#faq" className="hover:text-[#1E86D4] transition-colors">よくあるご質問</a>
           </nav>
@@ -374,7 +381,7 @@ function App() {
       </header>
 
       {/* メインヒーローエリア - ミントカラーと深ネイビーの調和 */}
-      <section className="relative overflow-hidden bg-gradient-to-b from-[#EAF5FF] via-[#EAF5FF]/50 to-white py-24 lg:py-32">
+      <section className="relative overflow-hidden bg-gradient-to-b from-[#EAF5FF] via-[#EAF5FF]/50 to-white pt-8 lg:pt-12 pb-24 lg:pb-32">
         <div className="absolute top-0 right-0 -mr-24 -mt-24 w-96 h-96 bg-[#1E86D4]/10 rounded-full blur-3xl opacity-80"></div>
         <div className="absolute bottom-0 left-0 -ml-24 -mb-24 w-96 h-96 bg-[#0E4C86]/5 rounded-full blur-3xl opacity-80"></div>
 
@@ -386,7 +393,7 @@ function App() {
               
               <div className="inline-flex items-center gap-2 bg-white border border-[#1E86D4]/40 text-[#1E86D4] font-bold text-xs sm:text-sm px-4 py-2.5 rounded-full shadow-sm">
                 <span className="w-2.5 h-2.5 bg-[#1E86D4] rounded-full animate-ping"></span>
-                東京・埼玉・千葉：チラシ配布中エリアの出張交通費は一切頂きません
+                東京・埼玉・千葉密着：出張交通費は一切頂きません
               </div>
 
               <h2 className="text-3xl sm:text-5xl lg:text-6xl font-extrabold text-[#0E4C86] leading-tight tracking-tight font-rounded">
@@ -438,6 +445,7 @@ function App() {
             <div className="lg:col-span-5 relative">
               <div className="relative mx-auto max-w-md bg-white rounded-3xl shadow-xl overflow-hidden border border-[#1E86D4]/20">
                 <div className="relative h-72 bg-slate-950">
+                  {/* ★メイン写真の差し替え：下の src の "..." を自分の画像URL（またはアップした "./xxx.jpg"）に変更★ */}
                   <img 
                     src="https://images.unsplash.com/photo-1581578731548-c64695cc6952?auto=format&fit=crop&w=800&q=80" 
                     alt="プロの手元の丁寧な作業風景" 
@@ -489,10 +497,12 @@ function App() {
             
             {/* Promise 1 */}
             <div className="bg-[#EAF5FF]/60 rounded-2xl p-8 border border-[#1E86D4]/20 hover:shadow-lg hover:shadow-[#1E86D4]/5 transition-all group">
-              <div className="w-12 h-12 bg-white text-[#1E86D4] border border-[#1E86D4]/30 rounded-xl flex items-center justify-center font-bold text-lg mb-6 group-hover:bg-[#0E4C86] group-hover:text-white group-hover:border-transparent transition-all font-rounded">
-                01
+              <div className="flex items-center gap-4 mb-4">
+                <div className="w-12 h-12 shrink-0 bg-white text-[#1E86D4] border border-[#1E86D4]/30 rounded-xl flex items-center justify-center font-bold text-lg group-hover:bg-[#0E4C86] group-hover:text-white group-hover:border-transparent transition-all font-rounded">
+                  01
+                </div>
+                <h3 className="text-lg font-bold text-[#0E4C86] font-rounded">無駄な経費を徹底カットした「納得価格」</h3>
               </div>
-              <h3 className="text-lg font-bold text-[#0E4C86] mb-3 font-rounded">無駄な経費を徹底カットした「納得価格」</h3>
               <p className="text-[#333333] text-xs sm:text-sm leading-relaxed font-gothic">
                 業界の標準価格を押し上げている「過剰な広告宣伝費」と「スタッフの移動コスト」を削減。同エリアでの集中訪問を行うことで効率化を図り、そのメリットをすべて「納得のいく適正価格」としてお客様に還元しています。
               </p>
@@ -500,10 +510,12 @@ function App() {
 
             {/* Promise 2 */}
             <div className="bg-[#EAF5FF]/60 rounded-2xl p-8 border border-[#1E86D4]/20 hover:shadow-lg hover:shadow-[#1E86D4]/5 transition-all group">
-              <div className="w-12 h-12 bg-white text-[#1E86D4] border border-[#1E86D4]/30 rounded-xl flex items-center justify-center font-bold text-lg mb-6 group-hover:bg-[#0E4C86] group-hover:text-white group-hover:border-transparent transition-all font-rounded">
-                02
+              <div className="flex items-center gap-4 mb-4">
+                <div className="w-12 h-12 shrink-0 bg-white text-[#1E86D4] border border-[#1E86D4]/30 rounded-xl flex items-center justify-center font-bold text-lg group-hover:bg-[#0E4C86] group-hover:text-white group-hover:border-transparent transition-all font-rounded">
+                  02
+                </div>
+                <h3 className="text-lg font-bold text-[#0E4C86] font-rounded">YouTube動画で作業の全行程を「完全公開」</h3>
               </div>
-              <h3 className="text-lg font-bold text-[#0E4C86] mb-3 font-rounded">YouTube動画で作業の全行程を「完全公開」</h3>
               <p className="text-[#333333] text-xs sm:text-sm leading-relaxed font-gothic">
                 「家の中にスタッフを上げるのが心配」「本当にきれいにしているの？」そんな不安に全力で答えます。私たちはエアコン高圧洗浄や水回り清掃の実際の様子をノーカットでYouTubeにて公開中。事前にお仕事の丁寧さをご確認いただけます。
               </p>
@@ -511,10 +523,12 @@ function App() {
 
             {/* Promise 3 */}
             <div className="bg-[#EAF5FF]/60 rounded-2xl p-8 border border-[#1E86D4]/20 hover:shadow-lg hover:shadow-[#1E86D4]/5 transition-all group">
-              <div className="w-12 h-12 bg-white text-[#1E86D4] border border-[#1E86D4]/30 rounded-xl flex items-center justify-center font-bold text-lg mb-6 group-hover:bg-[#0E4C86] group-hover:text-white group-hover:border-transparent transition-all font-rounded">
-                03
+              <div className="flex items-center gap-4 mb-4">
+                <div className="w-12 h-12 shrink-0 bg-white text-[#1E86D4] border border-[#1E86D4]/30 rounded-xl flex items-center justify-center font-bold text-lg group-hover:bg-[#0E4C86] group-hover:text-white group-hover:border-transparent transition-all font-rounded">
+                  03
+                </div>
+                <h3 className="text-lg font-bold text-[#0E4C86] font-rounded">見積り後の「追加料金一切なし」の明朗会計</h3>
               </div>
-              <h3 className="text-lg font-bold text-[#0E4C86] mb-3 font-rounded">見積り後の「追加料金一切なし」の明朗会計</h3>
               <p className="text-[#333333] text-xs sm:text-sm leading-relaxed font-gothic">
                 提示された料金はすべて【消費税込み】。汚れが予想以上だったからといって、当日現地で追加請求を行うことは絶対にございません。強引な営業やオプションの押し売りも一切行いませんので、安心してお任せください。
               </p>
@@ -898,6 +912,7 @@ function App() {
             {/* モック動画プレビュー */}
             <div className="lg:col-span-7">
               <div className="relative aspect-video w-full bg-slate-900 rounded-2xl shadow-xl overflow-hidden group border border-[#1E86D4]/30">
+                {/* ★YouTubeサムネ画像の差し替え：下の src を変更★ */}
                 <img 
                   src="https://images.unsplash.com/photo-1581578731548-c64695cc6952?auto=format&fit=crop&w=1000&q=80" 
                   alt="YouTube作業実況サムネイル" 
@@ -925,6 +940,7 @@ function App() {
                   </div>
                 </div>
 
+                {/* ★YouTube動画のリンク差し替え：下の href を自分のYouTube動画/チャンネルURLに変更★ */}
                 <a 
                   href="https://www.youtube.com" 
                   target="_blank" 
@@ -1304,7 +1320,7 @@ function App() {
             <div className="md:col-span-4 space-y-3.5">
               <h4 className="text-white font-bold text-sm font-rounded">おそうじ受付予約センター</h4>
               <p className="text-xs text-slate-300 leading-relaxed font-gothic">
-                おそうじ係ティディズハウス 窓口<br />
+                おそうじ係ティディズハウス 本部窓口<br />
                 対応可能エリア：東京都・埼玉県・千葉県<br />
                 受付可能時間：9:00〜19:00 (土日・祝日も年中無休)<br />
                 電話番号：<a href="tel:050-6870-6753" className="text-[#1E86D4] font-bold hover:underline">050-6870-6753</a><br />
