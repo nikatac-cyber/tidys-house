@@ -321,7 +321,7 @@ function App() {
             <a href="#features" className="hover:text-[#1E86D4] transition-colors">私たちのこだわり</a>
             <a href="#services" className="hover:text-[#1E86D4] transition-colors">サービス・納得価格</a>
             <a href="#estimator" className="hover:text-[#1E86D4] transition-colors">簡単見積シミュレーター</a>
-            <a href="#youtube" className="hover:text-[#1E86D4] transition-colors">作業実況動画</a>
+            <a href="#youtube" className="hover:text-[#1E86D4] transition-colors">作業動画</a>
             <a href="#flow" className="hover:text-[#1E86D4] transition-colors">ご利用の流れ</a>
             <a href="#faq" className="hover:text-[#1E86D4] transition-colors">よくあるご質問</a>
           </nav>
