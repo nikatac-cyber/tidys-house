@@ -447,7 +447,7 @@ function App() {
                 <div className="relative h-72 bg-slate-950">
                   {/* ★メイン写真の差し替え：下の src の "..." を自分の画像URL（またはアップした "./xxx.jpg"）に変更★ */}
                   <img 
-                    src="https://images.unsplash.com/photo-1581578731548-c64695cc6952?auto=format&fit=crop&w=800&q=80" 
+                    src="./aircon.jpg" 
                     alt="プロの手元の丁寧な作業風景" 
                     className="w-full h-full object-cover opacity-85 hover:scale-105 transition-transform duration-700"
                   />
