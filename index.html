@@ -33,3 +33,35 @@
            data-bottom="90"
            data-mobile-fullscreen="false"></script>
 
+  <!-- チャットアイコンを上品にゆっくり光らせる（動き軽減設定の人には自動オフ） -->
+  <style>
+    @keyframes ccGentleGlow {
+      0%   { box-shadow: 0 6px 16px rgba(0,0,0,0.18), 0 0 0 0 rgba(26,127,90,0.32); }
+      70%  { box-shadow: 0 6px 16px rgba(0,0,0,0.18), 0 0 0 13px rgba(26,127,90,0); }
+      100% { box-shadow: 0 6px 16px rgba(0,0,0,0.18), 0 0 0 0 rgba(26,127,90,0); }
+    }
+    .cc-gentle-glow { animation: ccGentleGlow 3.2s ease-out infinite; }
+    @media (prefers-reduced-motion: reduce) { .cc-gentle-glow { animation: none; } }
+  </style>
+  <script>
+    (function(){
+      function isLauncher(el){
+        if(!el || el.tagName!=='BUTTON') return false;
+        var s=getComputedStyle(el);
+        if(s.position!=='fixed') return false;
+        var r=el.getBoundingClientRect();
+        return r.width>=40 && r.width<=90 && r.height>=40 && r.height<=90;
+      }
+      function tagIt(){
+        var f=false;
+        document.querySelectorAll('body > button').forEach(function(b){
+          if(isLauncher(b)){ b.classList.add('cc-gentle-glow'); f=true; }
+        });
+        return f;
+      }
+      var t=0, iv=setInterval(function(){ t++; if(tagIt()||t>150){clearInterval(iv);} },1000);
+      try{ new MutationObserver(tagIt).observe(document.body,{childList:true}); }catch(e){}
+    })();
+  </script>
+</body>
+</html>
