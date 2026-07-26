@@ -226,6 +226,7 @@ function App() {
     try {
       const payload = {
         access_key: WEB3FORMS_ACCESS_KEY,
+        replyto: formData.email,
         subject: "【HP見積り・お問い合わせ】" + formData.name + " 様",
         from_name: "おそうじ係ティディズハウス HP",
         "お名前": formData.name,
