@@ -65,7 +65,7 @@ const servicesData = [
     //   お掃除機能付きは上位互換のため追加料金なし（特殊機能分の+2,200円は含まれる想定）。
     exclusiveOptions: [
       { name: "通常タイプ（追加料金なし）", extraPrice: 0 },
-      { name: "ストリーマー等特殊機能搭載タイプ", extraPrice: 2200 },
+      { name: "ストリーマー機能付き※お掃除機能、非搭載モデル", extraPrice: 2200 },
       { name: "お掃除機能付きタイプ", extraPrice: 6600 }
     ],
     exclusiveLabel: "エアコンの機能タイプ（いずれか1つを選択）"
@@ -158,68 +158,118 @@ function App() {
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   // 料金カート操作
-  const handleEstimateToggle = (serviceId, optionIndex = null) => {
+  // ★estimateCartの形：{ [serviceId]: [ {qty, options:[optIdx,...], exclusive:excIdx}, ... ] }
+  //   1つの配列要素＝「組み合わせ」。台数・機能タイプ・オプションが違う分だけ組み合わせを増やせる。
+  const emptyGroup = () => ({ qty: 1, options: [], exclusive: 0 });
+
+  // サービス全体のチェックON/OFF（OFFにすると組み合わせごと全部消える）
+  const handleServiceToggle = (serviceId) => {
     setEstimateCart(prev => {
       const current = { ...prev };
-      if (optionIndex === null) {
-        if (current[serviceId]) {
-          delete current[serviceId];
-        } else {
-          current[serviceId] = { qty: 1, options: [], exclusive: 0 };
-        }
+      if (current[serviceId]) {
+        delete current[serviceId];
       } else {
-        if (!current[serviceId]) {
-          current[serviceId] = { qty: 1, options: [optionIndex], exclusive: 0 };
-        } else {
-          const opts = current[serviceId].options;
-          if (opts.includes(optionIndex)) {
-            current[serviceId].options = opts.filter(i => i !== optionIndex);
-          } else {
-            current[serviceId].options = [...opts, optionIndex];
-          }
-        }
+        current[serviceId] = [emptyGroup()];
       }
       return current;
     });
   };
 
-  // エアコンの機能タイプなど「1つだけ選ぶ」系オプションの選択
-  const handleExclusiveSelect = (serviceId, excIndex) => {
+  // 「＋ 新しい組み合わせを追加」
+  const addGroup = (serviceId) => {
     setEstimateCart(prev => {
       if (!prev[serviceId]) return prev;
       const current = { ...prev };
-      current[serviceId] = { ...current[serviceId], exclusive: excIndex };
+      current[serviceId] = [...current[serviceId], emptyGroup()];
       return current;
     });
   };
 
-  const updateQuantity = (serviceId, delta) => {
+  // 組み合わせの削除（最後の1つを消したらサービスごと外す）
+  const removeGroup = (serviceId, groupIdx) => {
     setEstimateCart(prev => {
+      if (!prev[serviceId]) return prev;
       const current = { ...prev };
-      if (!current[serviceId]) return prev;
-      const nextQty = current[serviceId].qty + delta;
-      if (nextQty <= 0) {
+      const groups = current[serviceId].filter((_, i) => i !== groupIdx);
+      if (groups.length === 0) {
         delete current[serviceId];
       } else {
-        current[serviceId].qty = nextQty;
+        current[serviceId] = groups;
       }
       return current;
     });
+  };
+
+  const updateGroupQty = (serviceId, groupIdx, delta) => {
+    setEstimateCart(prev => {
+      if (!prev[serviceId]) return prev;
+      const current = { ...prev };
+      const groups = [...current[serviceId]];
+      const nextQty = groups[groupIdx].qty + delta;
+      if (nextQty <= 0) {
+        // 0台になったらこの組み合わせを削除（他に組み合わせが残っていればサービス自体は残す）
+        const filtered = groups.filter((_, i) => i !== groupIdx);
+        if (filtered.length === 0) {
+          delete current[serviceId];
+          return current;
+        }
+        current[serviceId] = filtered;
+        return current;
+      }
+      groups[groupIdx] = { ...groups[groupIdx], qty: nextQty };
+      current[serviceId] = groups;
+      return current;
+    });
+  };
+
+  // 組み合わせ内の追加オプション（複数選択可）のON/OFF
+  const toggleGroupOption = (serviceId, groupIdx, optIdx) => {
+    setEstimateCart(prev => {
+      if (!prev[serviceId]) return prev;
+      const current = { ...prev };
+      const groups = [...current[serviceId]];
+      const group = groups[groupIdx];
+      const opts = group.options.includes(optIdx)
+        ? group.options.filter(i => i !== optIdx)
+        : [...group.options, optIdx];
+      groups[groupIdx] = { ...group, options: opts };
+      current[serviceId] = groups;
+      return current;
+    });
+  };
+
+  // 組み合わせ内の機能タイプ（1つだけ選ぶ）の選択
+  const selectGroupExclusive = (serviceId, groupIdx, excIdx) => {
+    setEstimateCart(prev => {
+      if (!prev[serviceId]) return prev;
+      const current = { ...prev };
+      const groups = [...current[serviceId]];
+      groups[groupIdx] = { ...groups[groupIdx], exclusive: excIdx };
+      current[serviceId] = groups;
+      return current;
+    });
+  };
+
+  // 1つの組み合わせ（台数1台あたり）の単価を計算
+  const calculateGroupUnitCost = (service, group) => {
+    let unitCost = service.price;
+    group.options.forEach(optIdx => {
+      if (service.options[optIdx]) unitCost += service.options[optIdx].extraPrice;
+    });
+    if (service.exclusiveOptions && group.exclusive != null && service.exclusiveOptions[group.exclusive]) {
+      unitCost += service.exclusiveOptions[group.exclusive].extraPrice;
+    }
+    return unitCost;
   };
 
   const calculateTotal = () => {
     let total = 0;
-    Object.entries(estimateCart).forEach(([id, item]) => {
+    Object.entries(estimateCart).forEach(([id, groups]) => {
       const service = servicesData.find(s => s.id === id);
       if (service) {
-        let itemCost = service.price;
-        item.options.forEach(optIdx => {
-          itemCost += service.options[optIdx].extraPrice;
+        groups.forEach(group => {
+          total += calculateGroupUnitCost(service, group) * group.qty;
         });
-        if (service.exclusiveOptions && item.exclusive != null && service.exclusiveOptions[item.exclusive]) {
-          itemCost += service.exclusiveOptions[item.exclusive].extraPrice;
-        }
-        total += itemCost * item.qty;
       }
     });
     return total;
@@ -288,16 +338,20 @@ function App() {
   };
 
   const getSelectedServicesString = () => {
-    const items = Object.entries(estimateCart).map(([id, item]) => {
+    const lines = [];
+    Object.entries(estimateCart).forEach(([id, groups]) => {
       const s = servicesData.find(x => x.id === id);
-      const optNames = item.options.map(oIdx => s.options[oIdx].name);
-      if (s.exclusiveOptions && item.exclusive != null && item.exclusive > 0 && s.exclusiveOptions[item.exclusive]) {
-        optNames.unshift(s.exclusiveOptions[item.exclusive].name);
-      }
-      const selectedOpts = optNames.join(', ');
-      return `・${s.name} × ${item.qty}台/箇所 ${selectedOpts ? `(オプション: ${selectedOpts})` : ''}`;
+      if (!s) return;
+      groups.forEach(group => {
+        const optNames = group.options.map(oIdx => s.options[oIdx] && s.options[oIdx].name).filter(Boolean);
+        if (s.exclusiveOptions && group.exclusive != null && group.exclusive > 0 && s.exclusiveOptions[group.exclusive]) {
+          optNames.unshift(s.exclusiveOptions[group.exclusive].name);
+        }
+        const selectedOpts = optNames.join(', ');
+        lines.push(`・${s.name} × ${group.qty}台/箇所 ${selectedOpts ? `(オプション: ${selectedOpts})` : ''}`);
+      });
     });
-    return items.length > 0 ? items.join('\n') : "未選択（お問合せ時にご相談）";
+    return lines.length > 0 ? lines.join('\n') : "未選択（お問合せ時にご相談）";
   };
 
   // 見積り連動テキスト処理
@@ -715,9 +769,9 @@ function App() {
                       {/* 選択ボタン */}
                       <div className="pt-4 border-t border-slate-50">
                         <button
-                          onClick={() => handleEstimateToggle(service.id)}
+                          onClick={() => handleServiceToggle(service.id)}
                           className={`w-full py-3 rounded-xl font-bold text-xs sm:text-sm transition-all flex items-center justify-center gap-2 ${
-                            isSelectedInCart 
+                            isSelectedInCart
                               ? 'bg-[#0E4C86] text-white hover:bg-[#0E4C86]/90 shadow-sm' 
                               : 'bg-slate-100 text-[#333333] hover:bg-slate-200'
                           }`}
@@ -768,90 +822,116 @@ function App() {
               
               <div className="space-y-4 max-h-[440px] overflow-y-auto pr-2 custom-scrollbar">
                 {servicesData.map((service) => {
-                  const itemInCart = estimateCart[service.id];
+                  const groups = estimateCart[service.id];
+                  const canSplit = (service.options && service.options.length > 0) || (service.exclusiveOptions && service.exclusiveOptions.length > 0);
                   return (
-                    <div key={service.id} className={`p-4 rounded-xl transition-all border ${itemInCart ? 'bg-white/15 border-white/40' : 'bg-white/5 border-transparent hover:bg-white/10'}`}>
-                      
-                      <div className="flex items-center justify-between gap-4">
-                        <label className="flex items-center cursor-pointer select-none">
-                          <input 
-                            type="checkbox" 
-                            checked={!!itemInCart} 
-                            onChange={() => handleEstimateToggle(service.id)}
-                            className="w-5 h-5 rounded text-[#0E4C86] focus:ring-[#1E86D4] bg-white/20 border-white/30 mr-3.5 cursor-pointer"
-                          />
-                          <div>
-                            <span className="font-bold text-xs sm:text-sm md:text-base block">{service.name}</span>
-                            <span className="text-[11px] text-emerald-100 font-medium">納得価格：{service.price.toLocaleString()}円 / {service.unit}</span>
-                          </div>
-                        </label>
+                    <div key={service.id} className={`p-4 rounded-xl transition-all border ${groups ? 'bg-white/15 border-white/40' : 'bg-white/5 border-transparent hover:bg-white/10'}`}>
 
-                        {/* 個数コントロール */}
-                        {itemInCart && (
-                          <div className="flex items-center bg-slate-900/60 rounded-lg overflow-hidden p-1 border border-white/10 shrink-0">
-                            <button 
-                              onClick={() => updateQuantity(service.id, -1)} 
-                              className="px-2.5 py-1 text-xs hover:bg-white/10 rounded font-bold"
-                            >
-                              −
-                            </button>
-                            <span className="px-3 font-bold text-xs sm:text-sm">{itemInCart.qty}</span>
-                            <button 
-                              onClick={() => updateQuantity(service.id, 1)} 
-                              className="px-2.5 py-1 text-xs hover:bg-white/10 rounded font-bold"
-                            >
-                              ＋
-                            </button>
-                          </div>
-                        )}
-                      </div>
-
-                      {/* 機能タイプ選択サブパネル（排他選択） */}
-                      {itemInCart && service.exclusiveOptions && service.exclusiveOptions.length > 0 && (
-                        <div className="mt-3.5 pl-8 pt-3 border-t border-white/10 space-y-2">
-                          <p className="text-[11px] text-emerald-100 font-bold">{service.exclusiveLabel || "機能タイプ（いずれか1つ）"}：</p>
-                          {service.exclusiveOptions.map((opt, excIdx) => {
-                            const isExcChecked = (itemInCart.exclusive || 0) === excIdx;
-                            return (
-                              <label key={excIdx} className="flex items-center justify-between bg-white/5 hover:bg-white/10 p-2 rounded-lg cursor-pointer text-xs">
-                                <div className="flex items-center">
-                                  <input
-                                    type="radio"
-                                    name={`exclusive-${service.id}`}
-                                    checked={isExcChecked}
-                                    onChange={() => handleExclusiveSelect(service.id, excIdx)}
-                                    className="w-4 h-4 text-[#1E86D4] bg-white/20 mr-2"
-                                  />
-                                  <span>{opt.name}</span>
-                                </div>
-                                <span className="font-bold text-[#FAF7F2]">{opt.extraPrice > 0 ? `+${opt.extraPrice.toLocaleString()}円` : "追加料金なし"}</span>
-                              </label>
-                            );
-                          })}
+                      <label className="flex items-center cursor-pointer select-none">
+                        <input
+                          type="checkbox"
+                          checked={!!groups}
+                          onChange={() => handleServiceToggle(service.id)}
+                          className="w-5 h-5 rounded text-[#0E4C86] focus:ring-[#1E86D4] bg-white/20 border-white/30 mr-3.5 cursor-pointer"
+                        />
+                        <div>
+                          <span className="font-bold text-xs sm:text-sm md:text-base block">{service.name}</span>
+                          <span className="text-[11px] text-emerald-100 font-medium">納得価格：{service.price.toLocaleString()}円 / {service.unit}</span>
                         </div>
-                      )}
+                      </label>
 
-                      {/* オプション選択サブパネル */}
-                      {itemInCart && service.options.length > 0 && (
-                        <div className="mt-3.5 pl-8 pt-3 border-t border-white/10 space-y-2">
-                          <p className="text-[11px] text-emerald-100 font-bold">追加オプション：</p>
-                          {service.options.map((opt, optIdx) => {
-                            const isOptChecked = itemInCart.options.includes(optIdx);
-                            return (
-                              <label key={optIdx} className="flex items-center justify-between bg-white/5 hover:bg-white/10 p-2 rounded-lg cursor-pointer text-xs">
-                                <div className="flex items-center">
-                                  <input 
-                                    type="checkbox" 
-                                    checked={isOptChecked} 
-                                    onChange={() => handleEstimateToggle(service.id, optIdx)}
-                                    className="w-4 h-4 rounded text-[#1E86D4] bg-white/20 mr-2"
-                                  />
-                                  <span>{opt.name}</span>
+                      {groups && (
+                        <div className="mt-3.5 pl-8 space-y-3">
+                          {groups.map((group, groupIdx) => (
+                            <div key={groupIdx} className="bg-white/5 border border-white/10 rounded-lg p-3 space-y-2.5">
+                              <div className="flex items-center justify-between">
+                                <span className="text-[11px] font-bold text-[#FAC775]">組み合わせ{groupIdx + 1}</span>
+                                <div className="flex items-center gap-2.5">
+                                  <span className="text-[10px] text-emerald-100">台数</span>
+                                  <div className="flex items-center bg-slate-900/60 rounded-lg overflow-hidden p-0.5 border border-white/10 shrink-0">
+                                    <button
+                                      onClick={() => updateGroupQty(service.id, groupIdx, -1)}
+                                      className="px-2 py-0.5 text-xs hover:bg-white/10 rounded font-bold"
+                                    >
+                                      −
+                                    </button>
+                                    <span className="px-2.5 font-bold text-xs">{group.qty}</span>
+                                    <button
+                                      onClick={() => updateGroupQty(service.id, groupIdx, 1)}
+                                      className="px-2 py-0.5 text-xs hover:bg-white/10 rounded font-bold"
+                                    >
+                                      ＋
+                                    </button>
+                                  </div>
+                                  {groups.length > 1 && (
+                                    <button
+                                      onClick={() => removeGroup(service.id, groupIdx)}
+                                      aria-label="この組み合わせを削除"
+                                      className="text-red-200 hover:text-red-100 px-1"
+                                    >
+                                      ✕
+                                    </button>
+                                  )}
                                 </div>
-                                <span className="font-bold text-[#FAF7F2]">+{opt.extraPrice.toLocaleString()}円</span>
-                              </label>
-                            );
-                          })}
+                              </div>
+
+                              {service.exclusiveOptions && service.exclusiveOptions.length > 0 && (
+                                <div className="space-y-1.5">
+                                  <p className="text-[10px] text-emerald-100 font-bold">{service.exclusiveLabel || "機能タイプ（いずれか1つ）"}：</p>
+                                  {service.exclusiveOptions.map((opt, excIdx) => {
+                                    const isExcChecked = (group.exclusive || 0) === excIdx;
+                                    return (
+                                      <label key={excIdx} className="flex items-center justify-between bg-white/5 hover:bg-white/10 p-2 rounded-lg cursor-pointer text-xs">
+                                        <div className="flex items-center">
+                                          <input
+                                            type="radio"
+                                            name={`exclusive-${service.id}-${groupIdx}`}
+                                            checked={isExcChecked}
+                                            onChange={() => selectGroupExclusive(service.id, groupIdx, excIdx)}
+                                            className="w-4 h-4 text-[#1E86D4] bg-white/20 mr-2"
+                                          />
+                                          <span>{opt.name}</span>
+                                        </div>
+                                        <span className="font-bold text-[#FAF7F2]">{opt.extraPrice > 0 ? `+${opt.extraPrice.toLocaleString()}円` : "追加料金なし"}</span>
+                                      </label>
+                                    );
+                                  })}
+                                </div>
+                              )}
+
+                              {service.options.length > 0 && (
+                                <div className="space-y-1.5">
+                                  <p className="text-[10px] text-emerald-100 font-bold">追加オプション：</p>
+                                  {service.options.map((opt, optIdx) => {
+                                    const isOptChecked = group.options.includes(optIdx);
+                                    return (
+                                      <label key={optIdx} className="flex items-center justify-between bg-white/5 hover:bg-white/10 p-2 rounded-lg cursor-pointer text-xs">
+                                        <div className="flex items-center">
+                                          <input
+                                            type="checkbox"
+                                            checked={isOptChecked}
+                                            onChange={() => toggleGroupOption(service.id, groupIdx, optIdx)}
+                                            className="w-4 h-4 rounded text-[#1E86D4] bg-white/20 mr-2"
+                                          />
+                                          <span>{opt.name}</span>
+                                        </div>
+                                        <span className="font-bold text-[#FAF7F2]">+{opt.extraPrice.toLocaleString()}円</span>
+                                      </label>
+                                    );
+                                  })}
+                                </div>
+                              )}
+                            </div>
+                          ))}
+
+                          {canSplit && (
+                            <button
+                              onClick={() => addGroup(service.id)}
+                              className="w-full border border-dashed border-white/40 rounded-lg py-2 text-[11px] font-bold hover:bg-white/10 transition-colors"
+                            >
+                              ＋ 新しい組み合わせを追加
+                            </button>
+                          )}
                         </div>
                       )}
 
@@ -878,31 +958,28 @@ function App() {
                     <span>お掃除項目を選択すると、<br />こちらにリアルタイムで反映されます。</span>
                   </div>
                 ) : (
-                  Object.entries(estimateCart).map(([id, item]) => {
+                  Object.entries(estimateCart).map(([id, groups]) => {
                     const s = servicesData.find(x => x.id === id);
                     if (!s) return null;
-                    let baseTotal = s.price;
-                    const selectedOpts = item.options.map(optIdx => {
-                      baseTotal += s.options[optIdx].extraPrice;
-                      return s.options[optIdx].name;
-                    });
-                    if (s.exclusiveOptions && item.exclusive != null && item.exclusive > 0 && s.exclusiveOptions[item.exclusive]) {
-                      baseTotal += s.exclusiveOptions[item.exclusive].extraPrice;
-                      selectedOpts.unshift(s.exclusiveOptions[item.exclusive].name);
-                    }
-                    const rowTotal = baseTotal * item.qty;
+                    return groups.map((group, groupIdx) => {
+                      const selectedOpts = group.options.map(optIdx => s.options[optIdx] && s.options[optIdx].name).filter(Boolean);
+                      if (s.exclusiveOptions && group.exclusive != null && group.exclusive > 0 && s.exclusiveOptions[group.exclusive]) {
+                        selectedOpts.unshift(s.exclusiveOptions[group.exclusive].name);
+                      }
+                      const rowTotal = calculateGroupUnitCost(s, group) * group.qty;
 
-                    return (
-                      <div key={id} className="flex justify-between items-start text-xs border-b border-slate-100 pb-2.5">
-                        <div className="space-y-0.5">
-                          <span className="font-bold text-[#0E4C86]">{s.name} × {item.qty}</span>
-                          {selectedOpts.length > 0 && (
-                            <span className="block text-slate-400 text-[9px]">オプション：{selectedOpts.join(', ')}</span>
-                          )}
+                      return (
+                        <div key={`${id}-${groupIdx}`} className="flex justify-between items-start text-xs border-b border-slate-100 pb-2.5">
+                          <div className="space-y-0.5">
+                            <span className="font-bold text-[#0E4C86]">{s.name} × {group.qty}</span>
+                            {selectedOpts.length > 0 && (
+                              <span className="block text-slate-400 text-[9px]">オプション：{selectedOpts.join(', ')}</span>
+                            )}
+                          </div>
+                          <span className="font-bold text-[#0E4C86]">{rowTotal.toLocaleString()}円</span>
                         </div>
-                        <span className="font-bold text-[#0E4C86]">{rowTotal.toLocaleString()}円</span>
-                      </div>
-                    );
+                      );
+                    });
                   })
                 )}
               </div>
@@ -912,7 +989,7 @@ function App() {
                 <div className="flex justify-between items-center text-xs">
                   <span className="font-bold text-[#333333]/70">お掃除の合計箇所数</span>
                   <span className="font-extrabold text-[#0E4C86]">
-                    {Object.values(estimateCart).reduce((acc, cur) => acc + cur.qty, 0)} 箇所
+                    {Object.values(estimateCart).reduce((acc, groups) => acc + groups.reduce((a, g) => a + g.qty, 0), 0)} 箇所
                   </span>
                 </div>
                 <div className="flex justify-between items-end pt-3 border-t border-slate-200">
