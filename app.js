@@ -1502,7 +1502,8 @@ function App() {
             <div className="md:col-span-4 space-y-3.5">
               <h4 className="text-white font-bold text-sm font-rounded">おそうじ受付予約センター</h4>
               <p className="text-xs text-slate-300 leading-relaxed font-gothic">
-                おそうじ係ティディズハウス 本部窓口<br />
+                おそうじ係ティディズハウス 営業所<br />
+                住所：〒124-0004 東京都葛飾区東堀切1-23-3 1F<br />
                 対応可能エリア：<br />
                 【東京都】足立区・北区・葛飾区<br />
                 【埼玉県】川口市・蕨市・草加市・戸田市・八潮市・三郷市<br />
