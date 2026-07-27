@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+  <html lang="ja">
+  <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- ================================================================
+       送信完了（サンクス）ページ
+       配置先： リポジトリ直下に thanks/index.html
+               → 公開URL https://www.osoujigakari.com/thanks/
+
+     ★重要★ このページは検索結果に出してはいけません。
+     下の noindex は絶対に消さないこと。
+            （完了ページが検索でヒットすると、フォームを通さず
+              いきなりここに来た人が「送信できた」と誤解します）
+            sitemap.xml にも載せないでください。
+       ================================================================ -->
+  
+  <meta name="robots" content="noindex, nofollow">
+  <title>お問い合わせありがとうございます｜おそうじ係ティディズハウス</title>
+  <meta name="description" content="お問い合わせを受け付けました。">
+  <meta name="theme-color" content="#1E86D4">
+  <link rel="icon" type="image/png" href="/favicon.png">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@700;800&family=Zen+Kaku+Gothic+New:wght@400;500;700&display=swap" rel="stylesheet">
+
+  <style>
+  :root{
+    --blue:#1E86D4; --navy:#0E4C86; --orange:#F5921E;
+    --bg:#EAF5FF; --teal:#1a7f5a; --ink:#1f2937; --muted:#64748b; --line:#dbeafe;
+  }
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:"Zen Kaku Gothic New",-apple-system,BlinkMacSystemFont,"Hiragino Sans","Noto Sans JP",sans-serif;color:var(--ink);line-height:1.85;background:var(--bg);-webkit-text-size-adjust:100%}
+  h1,h2,h3{font-family:"M PLUS Rounded 1c","Zen Kaku Gothic New",sans-serif;font-weight:800;line-height:1.45}
+a{color:var(--blue)}
+  img{max-width:100%;height:auto;display:block}
+  .wrap{max-width:620px;margin:0 auto;padding:0 18px}
+
+header{background:#fff;border-bottom:1px solid var(--line)}
+  .hd{display:flex;align-items:center;height:60px}
+.hd a{display:flex;align-items:center;gap:8px;text-decoration:none;color:var(--navy);font-weight:800;font-size:15px}
+.hd img{height:34px;width:auto}
+
+main{padding:34px 0 44px}
+.card{background:#fff;border-radius:16px;padding:28px 22px;text-align:center;box-shadow:0 2px 14px rgba(14,76,134,.08)}
+.check{width:64px;height:64px;border-radius:50%;background:var(--teal);color:#fff;display:flex;align-items:center;justify-content:center;font-size:34px;font-weight:800;margin:0 auto 16px}
+h1{font-size:22px;color:var(--navy);margin-bottom:12px}
+.card p{font-size:15px;margin-bottom:14px}
+.lead{color:#334155}
+
+.box{background:var(--bg);border-radius:12px;padding:16px;margin:20px 0;text-align:left;font-size:14px;line-height:1.8}
+.box strong{color:var(--navy)}
+
+h2{font-size:17px;color:var(--navy);margin:26px 0 10px}
+.btns{display:flex;flex-direction:column;gap:10px;margin-top:8px}
+.btn{display:block;text-align:center;text-decoration:none;font-weight:800;padding:15px;border-radius:12px;font-size:16px;box-shadow:0 3px 0 rgba(0,0,0,.13);font-family:"M PLUS Rounded 1c",sans-serif}
+.btn-line{background:#06C755;color:#fff}
+.btn-tel{background:var(--orange);color:#fff}
+.btn-ghost{background:#fff;color:var(--navy);border:2px solid var(--blue);box-shadow:none}
+.note{font-size:12.5px;color:var(--muted);margin-top:16px}
+
+footer{background:var(--navy);color:#cbd5e1;padding:24px 0;font-size:13px;margin-top:10px}
+footer a{color:#93c5fd}
+@media(max-width:480px){ h1{font-size:19px} }
+</style>
+</head>
+
+  <body>
+
+  <header>
+    <div class="wrap hd">
+    <a href="/"><img src="/logo.png" width="34" height="34" alt="おそうじ係ティディズハウス">おそうじ係ティディズハウス</a>
+  </div>
+</header>
+
+  <main>
+  <div class="wrap">
+      <div class="card">
+      <div class="check" aria-hidden="true">✓</div>
+      <h1>お問い合わせを<br>受け付けました</h1>
+      <p class="lead">
+        この度はご連絡いただき、ありがとうございます。<br>
+        内容を確認のうえ、<strong>通常1営業日以内</strong>にご返信いたします。
+      </p>
+
+      <div class="box">
+        <strong>ご返信が届かない場合</strong><br>
+        迷惑メールフォルダに振り分けられていることがあります。お手数ですが一度ご確認ください。<br>
+          それでも届かない場合は、お電話かLINEでご連絡いただけますと確実です。
+      </div>
+
+        <h2>LINEだと、やり取りがスムーズです</h2>
+        <p style="font-size:14px">
+        エアコン本体や型番シールの<strong>写真を送っていただければ</strong>、
+        お掃除機能の有無を確認して、より正確なお見積りをお出しできます。
+          日程調整もそのままLINEで完結します。
+      </p>
+
+        <div class="btns">
+        <a class="btn btn-line" href="https://line.me/R/ti/p/@877vzdtl" target="_blank" rel="noopener">LINEで写真を送る・相談する</a>
+        <a class="btn btn-tel" href="tel:05068706753">☎ 050-6870-6753 に電話する</a>
+          <a class="btn btn-ghost" href="/">トップページへ戻る</a>
+      </div>
+
+      <p class="note">受付時間 9:00〜19:00／土日祝も対応しています</p>
+    </div>
+  </div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <p style="font-family:'M PLUS Rounded 1c',sans-serif;font-weight:800;color:#fff;font-size:15px;margin-bottom:8px">おそうじ係ティディズハウス</p>
+    <p>
+      TEL <a href="tel:05068706753">050-6870-6753</a>（9:00〜19:00 土日祝も対応）／ LINE ID：@877vzdtl<br>
+      対応エリア：埼玉（川口・蕨・草加・戸田・八潮・三郷）／東京（足立・北・葛飾）／千葉（松戸・流山）
+    </p>
+  </div>
+</footer>
+
+</body>
+</html>
