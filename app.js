@@ -59,9 +59,16 @@ const servicesData = [
     features: ["細部まで行き届く高圧洗浄", "におい・カビの徹底的な洗浄", "冷暖房効率の良好な回復"],
     imageUrl: "./eakonn1.PNG",
     options: [
-      { name: "お掃除機能付き", extraPrice: 6600 },
-      { name: "防カビコーティング", extraPrice: 1500 }
-    ]
+      { name: "防カビコーティング", extraPrice: 1650 }
+    ],
+    // ★機能タイプ（1つだけ選ぶ）：通常／ストリーマー等特殊機能／お掃除機能付き。
+    //   お掃除機能付きは上位互換のため追加料金なし（特殊機能分の+2,200円は含まれる想定）。
+    exclusiveOptions: [
+      { name: "通常タイプ（追加料金なし）", extraPrice: 0 },
+      { name: "ストリーマー等特殊機能搭載タイプ", extraPrice: 2200 },
+      { name: "お掃除機能付きタイプ", extraPrice: 6600 }
+    ],
+    exclusiveLabel: "エアコンの機能タイプ（いずれか1つを選択）"
   },
   {
     id: "rangehood",
@@ -99,6 +106,7 @@ const servicesData = [
     description: "ガスコンロやIHの頑固な焦げ付き、シンクの水垢・ヌメリ、天板から壁面までを丁寧に磨き上げ。毎日のお料理が楽しくなる清潔なキッチンへ仕上げします。",
     features: ["コンロ・IH天板の焦げ落とし", "シンク・蛇口の水垢除去と抗菌仕上げ", "前面壁・収納棚表面の拭き上げ"],
     imageUrl: "./logo.png",
+    priceNote: "※目安価格です。実際の広さ・汚れ具合により現地でお見積りします。",
     options: []
   },
   {
@@ -111,7 +119,10 @@ const servicesData = [
     description: "便器の内側やフチ裏の頑固な尿石、黄ばみ、気になるニオイの原因にしっかりアプローチ。ウォシュレットノズルなどの細部まで丁寧に除菌洗浄します。",
     features: ["フチ裏の頑固な尿石・黄ばみの除去", "ウォシュレットノズル細部洗浄", "壁面・床面の丁寧な除菌拭き上げ"],
     imageUrl: "./518608a2-7002-402a-b46e-714b9301718a.png",
-    options: []
+    options: [
+      { name: "ウォシュレット付き", extraPrice: 1100 },
+      { name: "床ワックスがけ※一畳まで", extraPrice: 2200 }
+    ]
   },
   {
     id: "outdoor_unit",
@@ -123,7 +134,9 @@ const servicesData = [
     description: "室外機の熱交換器（アルミフィン）に詰まったホコリや泥汚れを高圧洗浄。エアコン本体への負荷を和らげ、さらなる省エネ・電気代カットにつながります。",
     features: ["熱交換器アルミフィンの目詰まり解消", "ファン周辺・カバーの洗浄", "故障予防と長寿命化の促進"],
     imageUrl: "./1644959666772.jpg",
-    options: []
+    options: [
+      { name: "防虫キャップ", extraPrice: 1100 }
+    ]
   }
 ];
 
@@ -152,11 +165,11 @@ function App() {
         if (current[serviceId]) {
           delete current[serviceId];
         } else {
-          current[serviceId] = { qty: 1, options: [] };
+          current[serviceId] = { qty: 1, options: [], exclusive: 0 };
         }
       } else {
         if (!current[serviceId]) {
-          current[serviceId] = { qty: 1, options: [optionIndex] };
+          current[serviceId] = { qty: 1, options: [optionIndex], exclusive: 0 };
         } else {
           const opts = current[serviceId].options;
           if (opts.includes(optionIndex)) {
@@ -166,6 +179,16 @@ function App() {
           }
         }
       }
+      return current;
+    });
+  };
+
+  // エアコンの機能タイプなど「1つだけ選ぶ」系オプションの選択
+  const handleExclusiveSelect = (serviceId, excIndex) => {
+    setEstimateCart(prev => {
+      if (!prev[serviceId]) return prev;
+      const current = { ...prev };
+      current[serviceId] = { ...current[serviceId], exclusive: excIndex };
       return current;
     });
   };
@@ -193,6 +216,9 @@ function App() {
         item.options.forEach(optIdx => {
           itemCost += service.options[optIdx].extraPrice;
         });
+        if (service.exclusiveOptions && item.exclusive != null && service.exclusiveOptions[item.exclusive]) {
+          itemCost += service.exclusiveOptions[item.exclusive].extraPrice;
+        }
         total += itemCost * item.qty;
       }
     });
@@ -226,7 +252,6 @@ function App() {
     try {
       const payload = {
         access_key: WEB3FORMS_ACCESS_KEY,
-        replyto: formData.email,
         subject: "【HP見積り・お問い合わせ】" + formData.name + " 様",
         from_name: "おそうじ係ティディズハウス HP",
         "お名前": formData.name,
@@ -265,7 +290,11 @@ function App() {
   const getSelectedServicesString = () => {
     const items = Object.entries(estimateCart).map(([id, item]) => {
       const s = servicesData.find(x => x.id === id);
-      const selectedOpts = item.options.map(oIdx => s.options[oIdx].name).join(', ');
+      const optNames = item.options.map(oIdx => s.options[oIdx].name);
+      if (s.exclusiveOptions && item.exclusive != null && item.exclusive > 0 && s.exclusiveOptions[item.exclusive]) {
+        optNames.unshift(s.exclusiveOptions[item.exclusive].name);
+      }
+      const selectedOpts = optNames.join(', ');
       return `・${s.name} × ${item.qty}台/箇所 ${selectedOpts ? `(オプション: ${selectedOpts})` : ''}`;
     });
     return items.length > 0 ? items.join('\n') : "未選択（お問合せ時にご相談）";
@@ -636,6 +665,9 @@ function App() {
                             <span className="text-[10px] text-[#333333]/70 block font-gothic">/ {service.unit}(税込)</span>
                           </div>
                         </div>
+                        {service.priceNote && (
+                          <p className="text-[10px] text-[#333333]/60 -mt-2 font-gothic">{service.priceNote}</p>
+                        )}
 
                         <p className="text-[#333333] text-xs sm:text-sm leading-relaxed font-gothic">
                           {service.description}
@@ -648,6 +680,21 @@ function App() {
                             </li>
                           ))}
                         </ul>
+
+                        {/* 機能タイプ（排他選択）パネル */}
+                        {service.exclusiveOptions && service.exclusiveOptions.length > 0 && (
+                          <div className="pt-3.5 border-t border-slate-100">
+                            <span className="text-xs font-bold text-[#0E4C86] block mb-1.5 font-rounded">{service.exclusiveLabel || "機能タイプ（いずれか1つ）"}：</span>
+                            <div className="space-y-1">
+                              {service.exclusiveOptions.map((opt, i) => (
+                                <div key={i} className="flex justify-between items-center text-xs text-[#333333]/70 bg-slate-50 p-1.5 rounded">
+                                  <span>・{opt.name}</span>
+                                  <span className="font-bold text-[#333333]">{opt.extraPrice > 0 ? `+${opt.extraPrice.toLocaleString()}円(税込)` : "追加料金なし"}</span>
+                                </div>
+                              ))}
+                            </div>
+                          </div>
+                        )}
 
                         {/* オプションパネル */}
                         {service.options.length > 0 && (
@@ -759,6 +806,31 @@ function App() {
                         )}
                       </div>
 
+                      {/* 機能タイプ選択サブパネル（排他選択） */}
+                      {itemInCart && service.exclusiveOptions && service.exclusiveOptions.length > 0 && (
+                        <div className="mt-3.5 pl-8 pt-3 border-t border-white/10 space-y-2">
+                          <p className="text-[11px] text-emerald-100 font-bold">{service.exclusiveLabel || "機能タイプ（いずれか1つ）"}：</p>
+                          {service.exclusiveOptions.map((opt, excIdx) => {
+                            const isExcChecked = (itemInCart.exclusive || 0) === excIdx;
+                            return (
+                              <label key={excIdx} className="flex items-center justify-between bg-white/5 hover:bg-white/10 p-2 rounded-lg cursor-pointer text-xs">
+                                <div className="flex items-center">
+                                  <input
+                                    type="radio"
+                                    name={`exclusive-${service.id}`}
+                                    checked={isExcChecked}
+                                    onChange={() => handleExclusiveSelect(service.id, excIdx)}
+                                    className="w-4 h-4 text-[#1E86D4] bg-white/20 mr-2"
+                                  />
+                                  <span>{opt.name}</span>
+                                </div>
+                                <span className="font-bold text-[#FAF7F2]">{opt.extraPrice > 0 ? `+${opt.extraPrice.toLocaleString()}円` : "追加料金なし"}</span>
+                              </label>
+                            );
+                          })}
+                        </div>
+                      )}
+
                       {/* オプション選択サブパネル */}
                       {itemInCart && service.options.length > 0 && (
                         <div className="mt-3.5 pl-8 pt-3 border-t border-white/10 space-y-2">
@@ -814,6 +886,10 @@ function App() {
                       baseTotal += s.options[optIdx].extraPrice;
                       return s.options[optIdx].name;
                     });
+                    if (s.exclusiveOptions && item.exclusive != null && item.exclusive > 0 && s.exclusiveOptions[item.exclusive]) {
+                      baseTotal += s.exclusiveOptions[item.exclusive].extraPrice;
+                      selectedOpts.unshift(s.exclusiveOptions[item.exclusive].name);
+                    }
                     const rowTotal = baseTotal * item.qty;
 
                     return (
