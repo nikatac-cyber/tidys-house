@@ -15,6 +15,52 @@
 
   <link rel="icon" type="image/png" href="./favicon.png" />
 
+  <!-- ▼▼▼ SEO基盤（追加） ▼▼▼ -->
+
+  <!-- 正規URLの指定：www / apex / vercel.app の重複を防ぐ -->
+  <link rel="canonical" href="https://www.osoujigakari.com/" />
+
+  <!-- OGP補完：LINEやSNSで共有された時にサムネイルを出す -->
+  <meta property="og:url" content="https://www.osoujigakari.com/" />
+  <meta property="og:image" content="https://www.osoujigakari.com/aircon.jpg" />
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <!-- 構造化データ：Googleに「どこで営業している何屋か」を直接伝える -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "HomeAndConstructionBusiness",
+    "@id": "https://www.osoujigakari.com/#business",
+    "name": "おそうじ係ティディズハウス",
+    "url": "https://www.osoujigakari.com/",
+    "telephone": "+81-50-6870-6753",
+    "image": "https://www.osoujigakari.com/logo.png",
+    "priceRange": "¥¥",
+    "description": "東京・埼玉・千葉に出張対応するハウスクリーニング店。エアコン高圧洗浄1台6,600円〜、水回りクリーニング。出張交通費無料、追加料金なし。",
+    "areaServed": [
+      { "@type": "City", "name": "川口市", "sameAs": "https://ja.wikipedia.org/wiki/川口市" },
+      { "@type": "City", "name": "蕨市", "sameAs": "https://ja.wikipedia.org/wiki/蕨市" },
+      { "@type": "City", "name": "草加市", "sameAs": "https://ja.wikipedia.org/wiki/草加市" },
+      { "@type": "City", "name": "戸田市", "sameAs": "https://ja.wikipedia.org/wiki/戸田市_(埼玉県)" },
+      { "@type": "City", "name": "八潮市", "sameAs": "https://ja.wikipedia.org/wiki/八潮市" },
+      { "@type": "City", "name": "三郷市", "sameAs": "https://ja.wikipedia.org/wiki/三郷市" },
+      { "@type": "City", "name": "足立区", "sameAs": "https://ja.wikipedia.org/wiki/足立区" },
+      { "@type": "City", "name": "北区", "sameAs": "https://ja.wikipedia.org/wiki/北区_(東京都)" },
+      { "@type": "City", "name": "葛飾区", "sameAs": "https://ja.wikipedia.org/wiki/葛飾区" },
+      { "@type": "City", "name": "松戸市", "sameAs": "https://ja.wikipedia.org/wiki/松戸市" },
+      { "@type": "City", "name": "流山市", "sameAs": "https://ja.wikipedia.org/wiki/流山市" }
+    ],
+    "openingHoursSpecification": {
+      "@type": "OpeningHoursSpecification",
+      "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"],
+      "opens": "09:00",
+      "closes": "19:00"
+    },
+    "sameAs": ["https://youtu.be/tJy0Homq8yk"]
+  }
+  </script>
+  <!-- ▲▲▲ ここまで追加 ▲▲▲ -->
+
   <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
 
@@ -23,8 +69,45 @@
   <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
 </head>
 <body>
-  <div id="root"></div>
-  <noscript>このサイトの閲覧にはJavaScriptを有効にしてください。お問い合わせはお電話（050-6870-6753）でも承ります。</noscript>
+  <div id="root">
+    <!-- クローラー・JS無効環境向けの初期表示。React起動時に自動で置き換わります -->
+    <div style="max-width:760px;margin:0 auto;padding:24px 18px;font-family:sans-serif;line-height:1.9;color:#1f2937">
+      <h1 style="font-size:22px;color:#0E4C86">おそうじ係ティディズハウス｜東京・埼玉・千葉のハウスクリーニング</h1>
+      <p>エアコン高圧洗浄1台6,600円（税込）から。出張交通費無料・追加料金なしの明朗会計。分解洗浄によるプロ仕様のハウスクリーニングを、東京都・埼玉県・千葉県の出張対応エリアで承っています。損害保険加入済み。お見積りは無料です。</p>
+
+      <h2 style="font-size:18px;color:#0E4C86;margin-top:24px">対応エリア</h2>
+      <p>
+        <strong>東京都</strong>：足立区／北区／葛飾区<br>
+        <strong>埼玉県</strong>：川口市／蕨市／草加市／戸田市／八潮市／三郷市<br>
+        <strong>千葉県</strong>：松戸市／流山市<br>
+        上記エリアは出張交通費をいただきません。
+      </p>
+
+      <h2 style="font-size:18px;color:#0E4C86;margin-top:24px">料金（税込）</h2>
+      <ul>
+        <li>エアコン高圧洗浄（通常タイプ）1台 …… 6,600円</li>
+        <li>エアコン：ストリーマー機能付き（お掃除機能非搭載モデル、追加）…… +2,200円</li>
+        <li>エアコン：お掃除機能付きタイプ（追加）…… +6,600円</li>
+        <li>エアコン：防カビコーティング（追加）…… +1,650円</li>
+        <li>室外機 高圧洗浄（追加）…… 4,400円（防虫キャップ +1,100円）</li>
+        <li>浴室（お風呂場）クリーニング …… 13,200円（エプロン内部高圧洗浄 +6,600円）</li>
+        <li>レンジフード（換気扇）分解洗浄 …… 9,900円</li>
+        <li>キッチンクリーニング …… 9,900円〜（目安価格。実際の広さ・汚れ具合により現地でお見積り）</li>
+        <li>トイレクリーニング …… 6,600円（ウォシュレット付き +1,100円／床ワックスがけ +2,200円）</li>
+      </ul>
+      <p>お見積り後の追加請求は一切ありません。サイト上の見積りシミュレーターで、その場で概算をご確認いただけます。</p>
+
+      <h2 style="font-size:18px;color:#0E4C86;margin-top:24px">お問い合わせ</h2>
+      <p>
+        電話 <a href="tel:05068706753">050-6870-6753</a>（9:00〜19:00／土日祝も対応）<br>
+        LINE ID：@877vzdtl
+      </p>
+
+      <p style="margin-top:20px;font-size:13px;color:#64748b">
+        ※このページの表示にはJavaScriptが必要です。有効にすると通常のサイトが表示されます。
+      </p>
+    </div>
+  </div>
   <!-- Babel：日本語のまま書けるソース(app.js)をブラウザで動かすための変換ツール -->
   <script src="https://unpkg.com/@babel/standalone@7/babel.min.js"></script>
   <script type="text/babel" data-presets="react" src="./app.js"></script>

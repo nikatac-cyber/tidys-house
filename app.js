@@ -318,9 +318,9 @@ function App() {
       });
       const data = await res.json();
       if (data.success) {
+        // ★トップページはリダイレクトせず、同じ画面内で完了表示に切り替える。
+        //   /thanks/ への遷移はエリアページ（静的HTML）側のみで使用。
         setFormSubmitted(true);
-        // ★送信完了（サンクス）ページへ遷移。noindex設定済みの thanks/index.html。
-        window.location.href = "/thanks/";
       } else {
         setFormValidationError("送信に失敗しました。時間をおいて再度お試しいただくか、お電話・LINEにてご連絡ください。");
         const element = document.getElementById("validation-error-anchor");
@@ -1214,7 +1214,7 @@ function App() {
               },
               {
                 q: "出張対応可能エリアはどこですか？本当に出張交通費の請求はありませんか？",
-                a: "東京都、埼玉県、千葉県全域およびその近辺に対応しております。事前お見積もり以外の出張交通費等は一切頂いておりません。ご自宅に駐車スペースがない場合、近隣のコインパーキングを利用いたします。その際の駐車場代（実費）も当社が負担いたしますのでご安心ください。"
+                a: "東京都の足立区・北区・葛飾区、埼玉県の川口市・蕨市・草加市・戸田市・八潮市・三郷市、千葉県の松戸市・流山市を中心に対応しております。その近辺もご相談ください。事前お見積もり以外の出張交通費等は一切頂いておりません。ご自宅に駐車スペースがない場合、近隣のコインパーキングを利用いたします。その際の駐車場代（実費）も当社が負担いたしますのでご安心ください。"
               },
               {
                 q: "エアコンがお掃除機能付きかわからないのですが、対応できますか？",
@@ -1300,7 +1300,33 @@ function App() {
                   <p className="text-xs sm:text-sm text-[#333333]/70 max-w-md mx-auto leading-relaxed">
                     お問合せいただきありがとうございます。ご入力されたメールアドレス宛に自動お控えをお送りいたしました。担当者より迅速にご提案とスケジュール確認を行います。
                   </p>
-                  <button 
+
+                  {/* ▼▼▼ 追加：迷惑メールフォルダのご案内 ▼▼▼ */}
+                  <div className="max-w-md mx-auto text-left bg-[#EAF5FF] border border-[#1E86D4]/20 rounded-xl p-4">
+                    <p className="text-xs sm:text-sm text-[#0E4C86] font-bold font-rounded mb-1">ご返信が届かない場合</p>
+                    <p className="text-xs text-[#333333]/70 leading-relaxed">
+                      迷惑メールフォルダに振り分けられていることがあります。お手数ですが一度ご確認ください。それでも届かない場合は、お電話（<a href="tel:05068706753" className="text-[#1E86D4] font-bold underline">050-6870-6753</a>）またはLINEにてご連絡ください。
+                    </p>
+                  </div>
+
+                  {/* ▼▼▼ 追加：LINEへの誘導 ▼▼▼ */}
+                  <div className="max-w-md mx-auto text-left bg-white border border-[#06C755]/40 rounded-xl p-4">
+                    <p className="text-xs sm:text-sm text-[#0E4C86] font-bold font-rounded mb-1">LINEだと、やり取りがスムーズです</p>
+                    <p className="text-xs text-[#333333]/70 leading-relaxed mb-3">
+                      エアコン本体と型番シール（本体右下や前面パネル内側にあります）の写真を送っていただければ、お掃除機能の有無を確認して、より正確なお見積りをお出しできます。日程調整もそのままLINEで完結します。
+                    </p>
+                    <a
+                      href="https://line.me/ti/p/%40877vzdtl"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="block text-center bg-[#06C755] hover:bg-[#05b34c] text-white font-bold py-3 rounded-lg text-sm transition-all font-rounded"
+                    >
+                      LINEで写真を送る・相談する
+                    </a>
+                  </div>
+                  {/* ▲▲▲ ここまで追加 ▲▲▲ */}
+
+                  <button
                     onClick={() => {
                       setFormSubmitted(false);
                       setFormData({
@@ -1477,7 +1503,10 @@ function App() {
               <h4 className="text-white font-bold text-sm font-rounded">おそうじ受付予約センター</h4>
               <p className="text-xs text-slate-300 leading-relaxed font-gothic">
                 おそうじ係ティディズハウス 本部窓口<br />
-                対応可能エリア：東京都・埼玉県・千葉県<br />
+                対応可能エリア：<br />
+                【東京都】足立区・北区・葛飾区<br />
+                【埼玉県】川口市・蕨市・草加市・戸田市・八潮市・三郷市<br />
+                【千葉県】松戸市・流山市<br />
                 受付可能時間：9:00〜19:00 (土日・祝日も年中無休)<br />
                 電話番号：<a href="tel:050-6870-6753" className="text-[#1E86D4] font-bold hover:underline">050-6870-6753</a><br />
                 LINE ID：@877vzdtl
