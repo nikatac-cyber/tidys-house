@@ -319,6 +319,8 @@ function App() {
       const data = await res.json();
       if (data.success) {
         setFormSubmitted(true);
+        // ★送信完了（サンクス）ページへ遷移。noindex設定済みの thanks/index.html。
+        window.location.href = "/thanks/";
       } else {
         setFormValidationError("送信に失敗しました。時間をおいて再度お試しいただくか、お電話・LINEにてご連絡ください。");
         const element = document.getElementById("validation-error-anchor");
