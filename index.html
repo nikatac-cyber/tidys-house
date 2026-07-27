@@ -33,8 +33,16 @@
     "@id": "https://www.osoujigakari.com/#business",
     "name": "おそうじ係ティディズハウス",
     "url": "https://www.osoujigakari.com/",
-    "telephone": "+81-50-6870-6753",
-    "image": "https://www.osoujigakari.com/logo.png",
+      "telephone": "+81-50-6870-6753",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "東堀切1-23-3 1F",
+        "addressLocality": "葛飾区",
+        "addressRegion": "東京都",
+        "postalCode": "124-0004",
+        "addressCountry": "JP"
+      },
+      "image": "https://www.osoujigakari.com/logo.png",
     "priceRange": "¥¥",
     "description": "東京・埼玉・千葉に出張対応するハウスクリーニング店。エアコン高圧洗浄1台6,600円〜、水回りクリーニング。出張交通費無料、追加料金なし。",
     "areaServed": [
@@ -67,6 +75,10 @@
   <!-- React -->
   <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
   <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+
+  <!-- Babelの読み込みを前倒しして、初期表示の切り替わりを速くする -->
+  <link rel="preconnect" href="https://unpkg.com" crossorigin>
+  <link rel="preload" as="script" href="https://unpkg.com/@babel/standalone@7/babel.min.js">
 </head>
 <body>
   <div id="root">
