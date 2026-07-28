@@ -500,7 +500,7 @@ function App() {
               {/* CTAボタン群 */}
               <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start pt-4">
                 <a href="#estimator" className="bg-[#F5921E] hover:bg-[#F5921E]/90 text-white font-bold text-sm sm:text-base px-8 py-4.5 rounded-xl shadow-lg shadow-[#F5921E]/30 hover:-translate-y-0.5 active:translate-y-0 transition-all text-center font-rounded">
-                  料金シミュレーターを試す
+                  料金を今すぐ確認する
                 </a>
                 <a href="https://line.me/ti/p/%40877vzdtl" target="_blank" rel="noopener noreferrer" className="bg-white hover:bg-slate-50 text-[#0E4C86] border-2 border-[#0E4C86] font-bold text-sm sm:text-base px-8 py-4.5 rounded-xl shadow-sm hover:-translate-y-0.5 active:translate-y-0 transition-all flex items-center justify-center gap-2 font-rounded">
                   {LINE_ICON} LINEで無料相談
