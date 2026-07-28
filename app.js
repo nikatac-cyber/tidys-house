@@ -1244,12 +1244,11 @@ function App() {
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M19 9l-7 7-7-7" />
                     </svg>
                   </button>
-                  {isOpen && (
-                    <div className="p-5 bg-white border-t border-[#1E86D4]/20 text-xs sm:text-sm text-[#333333] leading-relaxed flex items-start transition-all">
-                      <span className="text-[#1E86D4] mr-2.5 font-bold font-rounded">A.</span>
-                      <div>{item.a}</div>
-                    </div>
-                  )}
+                  {/* 常にHTMLを生成し、開閉はCSSで行う（Googleに回答文を読ませるため） */}
+                  <div className={`${isOpen ? 'flex' : 'hidden'} p-5 bg-white border-t border-[#1E86D4]/20 text-xs sm:text-sm text-[#333333] leading-relaxed items-start transition-all`}>
+                    <span className="text-[#1E86D4] mr-2.5 font-bold font-rounded">A.</span>
+                    <div>{item.a}</div>
+                  </div>
                 </div>
               );
             })}
