@@ -53,7 +53,7 @@ const servicesData = [
     name: "エアコン高圧洗浄",
     price: 6600,
     unit: "1台",
-    originalPrice: "12,000円〜20,000円",
+    originalPrice: "9,900円",
     time: "約1時間",
     description: "高圧洗浄機を用いて、アルミフィンや送風ファンに潜むカビやホコリを細部まで丁寧に洗浄。アレルギー対策や冷暖房効率の復活により、電気代削減にもつながる納得のプロ仕様です。",
     features: ["細部まで行き届く高圧洗浄", "におい・カビの徹底的な洗浄", "冷暖房効率の良好な回復"],
@@ -75,7 +75,7 @@ const servicesData = [
     name: "レンジフード（換気扇）分解洗浄",
     price: 9900,
     unit: "1台",
-    originalPrice: "約15,000円",
+    originalPrice: "13,200円",
     time: "約1.5時間",
     description: "油汚れで目詰まりした内部ファンを分解。専用洗剤による温浴洗浄で頑固なギトギト油を丁寧に落とし、本来の吸気力を取り戻します。",
     features: ["内部シロッコファンの分解漬け置き", "頑固な油汚れの丁寧な除去", "フード・プロペラ全体の入念な拭き上げ"],
@@ -87,7 +87,7 @@ const servicesData = [
     name: "浴室（お風呂場）クリーニング",
     price: 13200,
     unit: "1室",
-    originalPrice: "約18,000円",
+    originalPrice: "16,500円",
     time: "約2時間",
     description: "天井、壁、浴槽から鏡の水垢ウロコ落としまで、浴室全体を徹底清掃。蓄積した皮脂汚れやカビを、材質に合わせた専用洗剤で隅々まで丁寧に除去します。",
     features: ["天井から壁, 床, 浴槽まで丸ごと", "鏡の頑固なウロコ汚れへのアプローチ", "排水口・エプロン表面の除菌消臭"],
@@ -101,7 +101,7 @@ const servicesData = [
     name: "キッチンクリーニング",
     price: 9900,
     unit: "1箇所",
-    originalPrice: "約15,000円",
+    originalPrice: "13,200円",
     time: "約1.5時間",
     description: "ガスコンロやIHの頑固な焦げ付き、シンクの水垢・ヌメリ、天板から壁面までを丁寧に磨き上げ。毎日のお料理が楽しくなる清潔なキッチンへ仕上げします。",
     features: ["コンロ・IH天板の焦げ落とし", "シンク・蛇口の水垢除去と抗菌仕上げ", "前面壁・収納棚表面の拭き上げ"],
@@ -114,7 +114,7 @@ const servicesData = [
     name: "トイレクリーニング",
     price: 6600,
     unit: "1室",
-    originalPrice: "約9,000円",
+    originalPrice: "8,800円",
     time: "約1時間",
     description: "便器の内側やフチ裏の頑固な尿石、黄ばみ、気になるニオイの原因にしっかりアプローチ。ウォシュレットノズルなどの細部まで丁寧に除菌洗浄します。",
     features: ["フチ裏の頑固な尿石・黄ばみの除去", "ウォシュレットノズル細部洗浄", "壁面・床面の丁寧な除菌拭き上げ"],
@@ -129,7 +129,7 @@ const servicesData = [
     name: "室外機高圧洗浄（オプション）",
     price: 4400,
     unit: "1台",
-    originalPrice: "約7,000円",
+    originalPrice: "6,600円",
     time: "約30分",
     description: "室外機の熱交換器（アルミフィン）に詰まったホコリや泥汚れを高圧洗浄。エアコン本体への負荷を和らげ、さらなる省エネ・電気代カットにつながります。",
     features: ["熱交換器アルミフィンの目詰まり解消", "ファン周辺・カバーの洗浄", "故障予防と長寿命化の促進"],
@@ -712,7 +712,7 @@ function App() {
                         {/* 納得プライス表示 */}
                         <div className="bg-[#EAF5FF] rounded-xl p-4 flex items-center justify-between border border-[#1E86D4]/30">
                           <div>
-                            <span className="text-[10px] text-slate-400 block font-gothic">一般他社相場：<del className="text-slate-400">{service.originalPrice}</del></span>
+                            <span className="text-[10px] text-slate-400 block font-gothic">通常価格：<span className="text-slate-400">{service.originalPrice}</span></span>
                             <span className="text-[#333333] font-bold text-xs font-gothic">手元の丁寧な職人品質</span>
                           </div>
                           <div className="text-right">
