@@ -427,10 +427,10 @@ function App() {
 
           {/* モバイル用の常時CTA（スマホではヘッダーに入口が無かったため追加） */}
           <a
-            href="#estimator"
+            href="tel:050-6870-6753"
             className="lg:hidden ml-auto mr-1.5 bg-[#F5921E] hover:bg-[#F5921E]/90 text-white font-bold text-xs px-4 py-2.5 rounded-full shadow-sm shadow-[#F5921E]/30 whitespace-nowrap font-rounded transition-all"
           >
-            かんたん見積り
+            ☎ 電話する
           </a>
 
           {/* モバイルメニューボタン */}
