@@ -91,7 +91,7 @@ const servicesData = [
     time: "約2時間",
     description: "天井、壁、浴槽から鏡の水垢ウロコ落としまで、浴室全体を徹底清掃。蓄積した皮脂汚れやカビを、材質に合わせた専用洗剤で隅々まで丁寧に除去します。",
     features: ["天井から壁, 床, 浴槽まで丸ごと", "鏡の頑固なウロコ汚れへのアプローチ", "排水口・エプロン表面の除菌消臭"],
-    imageUrl: "https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&w=600&q=80",
+    imageUrl: "./32862104_m.jpg",
     options: [
       { name: "エプロン内部 高圧洗浄", extraPrice: 6600 }
     ]
@@ -105,7 +105,7 @@ const servicesData = [
     time: "約1.5時間",
     description: "ガスコンロやIHの頑固な焦げ付き、シンクの水垢・ヌメリ、天板から壁面までを丁寧に磨き上げ。毎日のお料理が楽しくなる清潔なキッチンへ仕上げします。",
     features: ["コンロ・IH天板の焦げ落とし", "シンク・蛇口の水垢除去と抗菌仕上げ", "前面壁・収納棚表面の拭き上げ"],
-    imageUrl: "./logo.png",
+    imageUrl: "./3910420_m.jpg",
     priceNote: "※目安価格です。実際の広さ・汚れ具合により現地でお見積りします。",
     options: []
   },
