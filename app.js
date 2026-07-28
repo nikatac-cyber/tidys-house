@@ -510,8 +510,8 @@ function App() {
               {/* 実績＆メリット表示 */}
               <div className="pt-6 flex flex-wrap items-center justify-center lg:justify-start gap-8 text-[#333333]/70 text-xs font-semibold">
                 <div>
-                  <span className="block text-2xl font-bold text-[#0E4C86] font-rounded">100%</span>
-                  <span>自社スタッフ責任施工</span>
+                  <span className="block text-2xl font-bold text-[#0E4C86] font-rounded">5,000台<span className="text-sm">以上</span></span>
+                  <span>エアコン分解洗浄の実績（6年）</span>
                 </div>
                 <div className="border-l border-slate-200 h-8 hidden sm:block"></div>
                 <div>
