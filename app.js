@@ -1298,7 +1298,7 @@ function App() {
                   </div>
                   <h3 className="text-xl font-bold text-[#0E4C86] font-rounded">お申込み相談を送信完了いたしました</h3>
                   <p className="text-xs sm:text-sm text-[#333333]/70 max-w-md mx-auto leading-relaxed">
-                    お問合せいただきありがとうございます。ご入力されたメールアドレス宛に自動お控えをお送りいたしました。担当者より迅速にご提案とスケジュール確認を行います。
+                    お問合せいただきありがとうございます。担当者より迅速にご提案とスケジュール確認を行います。
                   </p>
 
                   {/* ▼▼▼ 追加：迷惑メールフォルダのご案内 ▼▼▼ */}
