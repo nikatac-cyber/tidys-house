@@ -1530,7 +1530,7 @@ function App() {
       <div className="fixed bottom-0 left-0 right-0 z-40 lg:hidden bg-white/95 backdrop-blur border-t border-slate-100 py-3.5 px-4 shadow-2xl flex gap-3 items-center justify-between font-gothic">
         <a 
           href="tel:050-6870-6753" 
-          className="flex-1 bg-slate-100 text-[#0E4C86] font-bold text-xs py-3 px-2 rounded-xl text-center flex items-center justify-center gap-1 hover:bg-slate-200 transition-colors"
+          className="flex-1 bg-slate-100 text-[#F5921E] font-bold text-xs py-3 px-2 rounded-xl text-center flex items-center justify-center gap-1 hover:bg-slate-200 transition-colors"
         >
           {PHONE_ICON} 電話
         </a>
