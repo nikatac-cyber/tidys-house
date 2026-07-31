@@ -416,7 +416,7 @@ function App() {
           <div className="hidden lg:flex items-center gap-4">
             <div className="text-right">
               <p className="text-[10px] text-[#333333]/70 font-bold font-gothic">年中無休 9:00〜19:00</p>
-              <a href="tel:050-6870-6753" className="text-base font-bold text-[#1E86D4] hover:text-[#1E86D4]/80 flex items-center transition-colors">
+              <a href="tel:050-6870-6753" className="text-base font-bold text-[#F5921E] hover:text-[#F5921E]/80 flex items-center transition-colors">
                 {PHONE_ICON} 050-6870-6753
               </a>
             </div>
@@ -452,7 +452,7 @@ function App() {
             <a href="#faq" onClick={() => setMobileMenuOpen(false)} className="block py-2 text-[#0E4C86] font-semibold hover:text-[#1E86D4] border-b border-slate-50">よくあるご質問</a>
             
             <div className="pt-4 space-y-3">
-              <a href="tel:050-6870-6753" className="flex items-center justify-center bg-slate-100 text-[#1E86D4] font-bold py-3 rounded-xl hover:bg-slate-200 transition-colors">
+              <a href="tel:050-6870-6753" className="flex items-center justify-center bg-slate-100 text-[#F5921E] font-bold py-3 rounded-xl hover:bg-slate-200 transition-colors">
                 {PHONE_ICON} 050-6870-6753
               </a>
               <a href="https://line.me/ti/p/%40877vzdtl" target="_blank" rel="noopener noreferrer" className="flex items-center justify-center bg-[#25D366] text-white font-bold py-3 rounded-xl hover:opacity-95 transition-opacity">
