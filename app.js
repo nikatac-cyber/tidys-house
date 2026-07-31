@@ -304,6 +304,7 @@ function App() {
         access_key: WEB3FORMS_ACCESS_KEY,
         subject: "【HP見積り・お問い合わせ】" + formData.name + " 様",
         from_name: "おそうじ係ティディズハウス HP",
+        "replyto": formData.email,
         "お名前": formData.name,
         "電話番号": formData.tel,
         "メールアドレス": formData.email,
