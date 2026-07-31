@@ -452,8 +452,9 @@ function App() {
             <a href="#faq" onClick={() => setMobileMenuOpen(false)} className="block py-2 text-[#0E4C86] font-semibold hover:text-[#1E86D4] border-b border-slate-50">よくあるご質問</a>
             
             <div className="pt-4 space-y-3">
-              <a href="tel:050-6870-6753" className="flex items-center justify-center bg-slate-100 text-[#F5921E] font-bold py-3 rounded-xl hover:bg-slate-200 transition-colors">
-                {PHONE_ICON} 050-6870-6753
+              <a href="tel:050-6870-6753" 
+   　　　　　　 className="flex items-center justify-center bg-white border-2 border-[#F5921E] text-[#F5921E] font-bold py-3 rounded-xl hover:bg-orange-50 transition-colors">
+   　           {PHONE_ICON} 050-6870-6753
               </a>
               <a href="https://line.me/ti/p/%40877vzdtl" target="_blank" rel="noopener noreferrer" className="flex items-center justify-center bg-[#25D366] text-white font-bold py-3 rounded-xl hover:opacity-95 transition-opacity">
                 {LINE_ICON} LINEで問い合わせ
