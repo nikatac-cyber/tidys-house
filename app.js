@@ -90,7 +90,7 @@ const servicesData = [
     originalPrice: "16,500円",
     time: "約2時間",
     description: "天井、壁、浴槽から鏡の水垢ウロコ落としまで、浴室全体を徹底清掃。蓄積した皮脂汚れやカビを、材質に合わせた専用洗剤で隅々まで丁寧に除去します。",
-    features: ["天井から壁, 床, 浴槽まで丸ごと", "鏡の頑固なウロコ汚れへのアプローチ", "排水口・エプロン表面の除菌消臭"],
+    features: ["天井から壁, 床, 浴槽まで丸ごと", "頑固な汚れへの段階的なアプローチ", "排水口・エプロン表面の除菌消臭"],
     imageUrl: "./32862104_m.jpg",
     options: [
       { name: "エプロン内部 高圧洗浄", extraPrice: 6600 }
@@ -602,7 +602,7 @@ function App() {
                 <div className="w-12 h-12 shrink-0 bg-white text-[#1E86D4] border border-[#1E86D4]/30 rounded-xl flex items-center justify-center font-bold text-lg group-hover:bg-[#0E4C86] group-hover:text-white group-hover:border-transparent transition-all font-rounded">
                   02
                 </div>
-                <h3 className="text-lg font-bold text-[#0E4C86] font-rounded">YouTube動画で作業の全行程を「完全公開」</h3>
+                <h3 className="text-lg font-bold text-[#0E4C86] font-rounded">YouTube動画で作業の行程を「完全公開」</h3>
               </div>
               <p className="text-[#333333] text-xs sm:text-sm leading-relaxed font-gothic">
                 「家の中にスタッフを上げるのが心配」「本当にきれいにしているの？」そんな不安に全力で答えます。私たちはエアコン高圧洗浄や水回り清掃の実際の様子をノーカットでYouTubeにて公開中。事前にお仕事の丁寧さをご確認いただけます。
@@ -1042,13 +1042,13 @@ function App() {
             <div className="lg:col-span-5 space-y-6">
               <span className="text-[#1E86D4] font-bold text-xs tracking-widest block uppercase font-rounded">TRUST & VISIBILITY</span>
               <h2 className="text-2xl sm:text-4xl font-bold text-[#0E4C86] leading-tight font-rounded">
-                全お掃除作業の様子を<br />
-                YouTubeで余さず配信
+                お掃除作業の様子を<br />
+                YouTubeで配信中
               </h2>
               <div className="w-12 h-[2px] bg-[#1E86D4]"></div>
               
               <p className="text-[#333333]/90 text-xs sm:text-sm leading-relaxed font-gothic">
-                おそうじ係ティディズハウスでは、スタッフによるエアコン洗浄の具体的な手順や、水回り洗浄の一部始終をYouTubeチャンネルにてすべてオープンにしております。
+                おそうじ係ティディズハウスでは、スタッフによるエアコン洗浄の具体的な手順をYouTubeチャンネルにてオープンにしております。
               </p>
               <p className="text-[#333333]/90 text-xs sm:text-sm leading-relaxed font-gothic">
                 「誰が来て、どのように作業しているか」を事前にお客さま自身の目で確認できるからこそ、初めのお申し込みでも余計な心配なく、心から安心してご依頼いただけます。
